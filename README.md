@@ -10,9 +10,11 @@ A project to monitor stock price
 1. Clone the project
     
     git clone https://github.com/Abhijith-Nagaraja/monitor-stock-price.git
-2. Go inside the clone directory and execute maven install
+2. Go inside the cloned directory and navigate to WebContent/WEB-INF and open web.xml
+3. Change the <param-value> for url, username and password in the <context-param> to include your MySQL details
+4. Navigate back to project root folder and exceute maven install
  
       mvn clean install
-3. Copy the war folder from projects target directory into your Tomcat server webapp directory and renmae if required
-4. Start the Tomcat server
-5. Open the browser, go to "[your server address with port]://[war-name]/"
+5. Copy the war folder from projects target directory into your Tomcat server webapp directory and renmae if required
+6. Start the Tomcat server
+7. Open the browser, go to "[your server address with port]://[war-name]/"
