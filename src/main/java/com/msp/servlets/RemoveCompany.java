@@ -38,12 +38,14 @@ public class RemoveCompany extends MspServlet implements Audit
 
 			//Note this is just a soft delete. Not a hard delete
 			String query = " UPDATE company SET deleteFl = 1 where id=";
-			int userId = Integer.parseInt( request.getParameter( "id" ) );
-			query += userId;
+			int companyId = Integer.parseInt( request.getParameter( "id" ) );
+			query += companyId;
+			
 			st.executeUpdate( query );
 			
 			//Audit
-			saveActionInfo( userId, "Company id = "+id+" deleteFl=1" );
+			int userId = ( int ) request.getSession().getAttribute( "uid" );
+			saveActionInfo( userId, "Company id = "+companyId +" deleteFl=1" );
 			response.getWriter().append( "success" );
 		}
 		catch ( SQLException e )
