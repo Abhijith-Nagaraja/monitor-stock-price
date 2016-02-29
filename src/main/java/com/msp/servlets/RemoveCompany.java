@@ -43,7 +43,7 @@ public class RemoveCompany extends MspServlet implements Audit
 			st.executeUpdate( query );
 			
 			//Audit
-			saveActionInfo( userId, "deleteFl=1" );
+			saveActionInfo( userId, "Company id = "+id+" deleteFl=1" );
 			response.getWriter().append( "success" );
 		}
 		catch ( SQLException e )
@@ -59,7 +59,7 @@ public class RemoveCompany extends MspServlet implements Audit
 		try
 		{
 			Statement st = conn.createStatement();
-			String query = "insert into audit (userId, action, result) values (" + userId + ", 'Add Company','" + data + "')";
+			String query = "insert into audit (userId, action, result) values (" + userId + ", 'Remove Company','" + data + "')";
 			st.executeUpdate( query );
 			conn.close();
 		}
