@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor Stock Price</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+	crossorigin="anonymous"></script>
+
+<!-- Custom imports -->
+<link rel="stylesheet" href="./resources/css/app.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Monitor Stock Price</a>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-6">
+								<a href="#" class="active" id="login-form-link">Login</a>
+							</div>
+							<div class="col-xs-6">
+								<a href="#" id="register-form-link">Register</a>
+							</div>
+						</div>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<form id="login-form" action="" role="form"
+									style="display: block;">
+									<div class="form-group">
+										<input type="email"" name="email" id="email" tabindex="1"
+											class="form-control" placeholder="Email" value="" required="true">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="password"
+											tabindex="2" class="form-control" placeholder="Password" required="true">
+									</div>
+
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="login-submit" id="login-submit"
+													tabindex="4" class="form-control btn btn-login"
+													value="Log In">
+											</div>
+										</div>
+									</div>
+									
+									<span class = "label label-danger" id = "error"></span>
+								</form>
+								<form id="register-form" action="" role="form" style="display: none;">
+									<div class="form-group">
+										<input type="email" name="email" id="emailR" tabindex="1"
+											class="form-control" placeholder="Email" value="" required="true">
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="passwordR"
+											tabindex="2" class="form-control" placeholder="Password" required="true">
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3">
+												<input type="submit" name="register-submit"
+													id="register-submit" tabindex="4"
+													class="form-control btn btn-register" value="Register Now">
+											</div>
+										</div>
+									</div>
+									<span class="label label-danger" id="err"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- JQuery -->
+	<script
+		src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.0.min.js"></script>
+	<script>
+		$(function() {
+			$('#login-form-link').click(function(e) {
+				$("#login-form").delay(100).fadeIn(100);
+				$("#register-form").fadeOut(100);
+				$('#register-form-link').removeClass('active');
+				$(this).addClass('active');
+				e.preventDefault();
+			});
+
+			$('#register-form-link').click(function(e) {
+				$("#register-form").delay(100).fadeIn(100);
+				$("#login-form").fadeOut(100);
+				$('#login-form-link').removeClass('active');
+				$(this).addClass('active');
+				e.preventDefault();
+			});
+
+			$("#login-form").submit(function() {
+				$.post("./Login", {
+					email : $('#email').val(),
+					password : $('#password').val()
+				}, function(data, status) {
+					if (data == 'success')
+						$(location).attr('href', "Dashboard");
+					else
+						$("#error").html(data);
+				}).fail(function(data) {
+					alert(data);
+				});
+				return false;
+			});
+
+			$("#register-form").submit(function() {
+				$.post("./Register", {
+					email : $('#emailR').val(),
+					password : $('#passwordR').val()
+				}, function(data, status) {
+					if (data == 'success') {
+						alert("Registation complete, Continue to login");
+						$(location).attr('href', "index.html");
+					} else
+						$("#err").html(data);
+				}).fail(function(data) {
+					alert(data);
+				});
+				return false;
+			});
+		});
+	</script>
+</body>
+</html>
